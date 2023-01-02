@@ -2,9 +2,7 @@ package com.awaliyah.libraryapi.service;
 
 import com.awaliyah.libraryapi.entity.Book;
 import com.awaliyah.libraryapi.entity.BookType;
-import com.awaliyah.libraryapi.entity.Language;
 import com.awaliyah.libraryapi.exception.BookTypeServiceException;
-import com.awaliyah.libraryapi.exception.LanguageServiceException;
 import com.awaliyah.libraryapi.exception.ResourceNotFoundException;
 import com.awaliyah.libraryapi.repository.BookRepository;
 import com.awaliyah.libraryapi.repository.BookTypeRepository;
@@ -72,7 +70,7 @@ public class BookTypeService {
 
     }
 
-    public Iterable<BookType> findAllLanguages() {
+    public Iterable<BookType> findAllBookTypes() {
         return this.bookTypeRepository.findAll();
     }
 
