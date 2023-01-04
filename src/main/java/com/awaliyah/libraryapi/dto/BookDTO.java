@@ -7,12 +7,15 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
 
 @Builder
 @Getter
 public class BookDTO {
 
     private String guid;
+
+    @NotBlank(message = "ISBN can not be null or empty")
     private String isbn;
     private String title;
     private String writer;

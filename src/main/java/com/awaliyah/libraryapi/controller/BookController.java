@@ -40,7 +40,46 @@ public class BookController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
-    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "{isbn}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BookDTO>> findBookByIsbn(@PathVariable String isbn) {
+
+        List<BookDTO> resp = StreamSupport.stream(this.bookService.findBookByTitle(isbn).spliterator(), false)
+                .map(book -> BookDTO.toDTO(book))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+
+    }
+    @GetMapping(value = "{title}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BookDTO>> findBookByTitle(@PathVariable String title) {
+
+        List<BookDTO> resp = StreamSupport.stream(this.bookService.findBookByTitle(title).spliterator(), false)
+                .map(book -> BookDTO.toDTO(book))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+
+    }
+
+    @GetMapping(value = "{writer}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BookDTO>> findBookByWriter(@PathVariable String writer) {
+
+        List<BookDTO> resp = StreamSupport.stream(this.bookService.findBookByTitle(writer).spliterator(), false)
+                .map(book -> BookDTO.toDTO(book))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+
+    }
+
+    @GetMapping(value = "{publisher}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BookDTO>> findBookByPublisher(@PathVariable String publisher) {
+
+        List<BookDTO> resp = StreamSupport.stream(this.bookService.findBookByTitle(publisher).spliterator(), false)
+                .map(book -> BookDTO.toDTO(book))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+
+    }
+
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createNewBook(@RequestBody BookDTO bookDTO) {
         if(bookDTO.getLanguage() == null) {
             throw new ValidationException("Language can not null");
@@ -57,7 +96,7 @@ public class BookController {
         return new ResponseEntity<>(newBook.getGuid(), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateBook(@RequestBody BookDTO bookDTO) {
 
         if(!StringUtils.hasText(bookDTO.getGuid())) {
@@ -71,7 +110,7 @@ public class BookController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping(value = "{guid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "{guid}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> deleteBook(@PathVariable String guid) {
         this.bookService.deleteBook(guid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

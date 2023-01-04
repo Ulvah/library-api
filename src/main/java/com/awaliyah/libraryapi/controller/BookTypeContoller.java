@@ -40,14 +40,14 @@ public class BookTypeContoller {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
-    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createNewBookType(@RequestBody BookTypeDTO bookTypeDTO) {
 
         BookType newBookType = this.bookTypeService.addNewBookType(bookTypeDTO.getTypeName());
         return new ResponseEntity<>(newBookType.getGuid(), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateBook(@RequestBody BookTypeDTO bookTypeDTO) {
 
         if(!StringUtils.hasText(bookTypeDTO.getGuid())) {
@@ -59,7 +59,7 @@ public class BookTypeContoller {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping(value = "{guid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "{guid}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> deleteBookType(@PathVariable String guid) {
         this.bookTypeService.deleteBookType(guid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

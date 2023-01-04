@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.print.attribute.standard.Media;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -41,14 +42,14 @@ public class LanguageController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
-    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createNewBookType(@RequestBody LanguageDTO languageDTO) {
 
         Language newLanguage = this.languageService.addNewLanguage(languageDTO.getLanguageName());
         return new ResponseEntity<>(newLanguage.getGuid(), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateLanguage(@RequestBody LanguageDTO languageDTO) {
 
         if(!StringUtils.hasText(languageDTO.getGuid())) {
@@ -60,7 +61,7 @@ public class LanguageController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping(value = "{guid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "{guid}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> deleteLanguage(@PathVariable String guid) {
         this.languageService.deleteLanguage(guid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
