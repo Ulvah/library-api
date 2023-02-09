@@ -1,6 +1,7 @@
 package com.awaliyah.libraryapi.controller;
 
 import com.awaliyah.libraryapi.dto.BookDTO;
+import com.awaliyah.libraryapi.dto.ResourceGuidDTO;
 import com.awaliyah.libraryapi.entity.Book;
 import com.awaliyah.libraryapi.exception.ValidationException;
 import com.awaliyah.libraryapi.service.BookService;
@@ -80,7 +81,7 @@ public class BookController {
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createNewBook(@RequestBody BookDTO bookDTO) {
+    public ResponseEntity<ResourceGuidDTO> createNewBook(@RequestBody BookDTO bookDTO) {
         if(bookDTO.getLanguage() == null) {
             throw new ValidationException("Language can not null");
         }
@@ -93,7 +94,7 @@ public class BookController {
                 bookDTO.getWriter(), bookDTO.getPublisher(), bookDTO.getLanguage().getGuid(),
                 bookDTO.getBookType().getGuid());
 
-        return new ResponseEntity<>(newBook.getGuid(), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResourceGuidDTO(newBook.getGuid()), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

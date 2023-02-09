@@ -1,8 +1,7 @@
 package com.awaliyah.libraryapi.controller;
 
-import com.awaliyah.libraryapi.dto.BookTypeDTO;
 import com.awaliyah.libraryapi.dto.LanguageDTO;
-import com.awaliyah.libraryapi.entity.BookType;
+import com.awaliyah.libraryapi.dto.ResourceGuidDTO;
 import com.awaliyah.libraryapi.entity.Language;
 import com.awaliyah.libraryapi.exception.ValidationException;
 import com.awaliyah.libraryapi.service.LanguageService;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.print.attribute.standard.Media;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -43,10 +41,10 @@ public class LanguageController {
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createNewBookType(@RequestBody LanguageDTO languageDTO) {
+    public ResponseEntity<ResourceGuidDTO> createNewBookType(@RequestBody LanguageDTO languageDTO) {
 
         Language newLanguage = this.languageService.addNewLanguage(languageDTO.getLanguageName());
-        return new ResponseEntity<>(newLanguage.getGuid(), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResourceGuidDTO(newLanguage.getGuid()), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

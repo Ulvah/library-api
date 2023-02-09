@@ -1,6 +1,7 @@
 package com.awaliyah.libraryapi.controller;
 
 import com.awaliyah.libraryapi.dto.BookTypeDTO;
+import com.awaliyah.libraryapi.dto.ResourceGuidDTO;
 import com.awaliyah.libraryapi.entity.BookType;
 import com.awaliyah.libraryapi.exception.ValidationException;
 import com.awaliyah.libraryapi.service.BookTypeService;
@@ -41,10 +42,10 @@ public class BookTypeContoller {
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createNewBookType(@RequestBody BookTypeDTO bookTypeDTO) {
+    public ResponseEntity<ResourceGuidDTO> createNewBookType(@RequestBody BookTypeDTO bookTypeDTO) {
 
         BookType newBookType = this.bookTypeService.addNewBookType(bookTypeDTO.getTypeName());
-        return new ResponseEntity<>(newBookType.getGuid(), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResourceGuidDTO(newBookType.getGuid()), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
