@@ -59,7 +59,7 @@ public class LanguageController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping(value = "{guid}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "{guid}")
     public ResponseEntity<Void> deleteLanguage(@PathVariable String guid) {
         this.languageService.deleteLanguage(guid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

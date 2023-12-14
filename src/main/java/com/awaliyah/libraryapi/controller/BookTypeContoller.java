@@ -60,7 +60,7 @@ public class BookTypeContoller {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping(value = "{guid}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "{guid}")
     public ResponseEntity<Void> deleteBookType(@PathVariable String guid) {
         this.bookTypeService.deleteBookType(guid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
